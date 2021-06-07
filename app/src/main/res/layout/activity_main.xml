@@ -1,61 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.MainActivity">
+    android:background="@color/white">
 
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your name"
-            />
-
-        <Button
-            android:id="@+id/name_update"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/host"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Update name"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:defaultNavHost="true"
             />
 
-        <Button
-            android:id="@+id/location_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enable/restart location updates"
-            android:layout_marginTop="40dp"
-            />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <Button
-            android:id="@+id/location_stop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Disable location updates"
-            />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/last_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="50dp"
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

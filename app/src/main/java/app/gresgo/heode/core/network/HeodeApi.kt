@@ -1,7 +1,6 @@
-package app.gresgo.heode.api
+package app.gresgo.heode.core.network
 
-import app.gresgo.heode.model.UserLocation
-import io.reactivex.Single
+import app.gresgo.heode.core.model.UserLocation
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -13,8 +12,8 @@ interface HeodeApi {
     }
 
     @POST("$save/")
-    fun addLocation(
+    suspend fun addLocation(
         @Body body: UserLocation
-    ) : Single<Response<Unit>>
+    ) : Response<Unit>
 
 }

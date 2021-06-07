@@ -1,7 +1,6 @@
 package app.gresgo.heode.service
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.Service
 import android.content.Intent
@@ -12,30 +11,15 @@ import android.os.IBinder
 import android.os.Looper
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.preference.PreferenceManager
-import app.gresgo.heode.api.HeodeApi
-import app.gresgo.heode.model.LocationUpdate
-import app.gresgo.heode.model.UserLocation
-import app.gresgo.heode.util.BASE_URL
-import app.gresgo.heode.util.LOCATION_CHANNEL_ID
-import app.gresgo.heode.util.NotificationChannels
-import app.gresgo.heode.util.plusAssign
+import app.gresgo.heode.core.model.LocationUpdate
+import app.gresgo.heode.core.model.UserLocation
+import app.gresgo.heode.utils.LOCATION_CHANNEL_ID
+import app.gresgo.heode.utils.NotificationChannels
 import com.google.android.gms.location.*
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 class LocationService: Service() {
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private var name = "mew"
-    private lateinit var preferences: SharedPreferences
-    private var disposable = CompositeDisposable()
-
-    private lateinit var retrofit: Retrofit
-    private lateinit var heodeApi: HeodeApi
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -45,22 +29,13 @@ class LocationService: Service() {
         super.onCreate()
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(applicationContext)
-        preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        heodeApi = retrofit.create(HeodeApi::class.java)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        name = preferences.getString("name", "mew") ?: "mew"
         setupLocation(10 * 1000L, 10f)
         return START_STICKY
     }
 
-    @SuppressLint("MissingPermission")
     private fun setupLocation(minTime: Long, minDistance: Float) {
         if (ActivityCompat.checkSelfPermission(
                 applicationContext,
@@ -95,32 +70,24 @@ class LocationService: Service() {
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(location: LocationResult) {
             val point = location.lastLocation
+            // TODO: fix location time
             val locationTime = point.time / 1000000L
 
-            val geo = UserLocation(
-                user = name,
-                dots = LocationUpdate(
-                    latitude = point.latitude,
-                    longitude = point.longitude,
-                    accuracy = point.accuracy,
-                    speed = if (point.speed == 0.0f) 3f else point.speed,
-                    timestamp = locationTime
-                )
+            val geo = LocationUpdate(
+                latitude = point.latitude,
+                longitude = point.longitude,
+                accuracy = point.accuracy,
+                speed = if (point.speed == 0.0f) 3f else point.speed,
+                timestamp = locationTime
             )
-            disposable += heodeApi.addLocation(geo)
-                .subscribeOn(Schedulers.io())
-                .subscribe({
 
-                }, {
-
-                })
+            // TODO: send location
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-        disposable.dispose()
         stopForeground(true)
     }
 

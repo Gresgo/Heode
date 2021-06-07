@@ -1,4 +1,4 @@
-package app.gresgo.heode.util
+package app.gresgo.heode.utils
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

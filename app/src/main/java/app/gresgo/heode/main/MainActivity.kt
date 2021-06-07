@@ -2,50 +2,41 @@ package app.gresgo.heode.main
 
 import android.Manifest
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.view.WindowCompat
+import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
+import app.gresgo.heode.R
 import app.gresgo.heode.databinding.ActivityMainBinding
 import app.gresgo.heode.service.LocationService
+import app.gresgo.heode.utils.PreferenceKeys
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val preferences: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        checkPermissions()
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this.applicationContext)
-        val service = Intent(this, LocationService::class.java)
-
-        binding.name.setText(preferences.getString("name", "") ?: "")
-
-        binding.nameUpdate.setOnClickListener {
-            if (checkName()) {
-                preferences.edit()
-                        .putString("name", binding.name.text.toString())
-                        .apply()
-            }
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.host) as NavHostFragment
+        val controller = navHostFragment.navController
+        val graph = controller.navInflater.inflate(R.navigation.main)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        if (preferences.getString(PreferenceKeys.TOKEN, null) == null) {
+//            graph.startDestination = R.id.
+        } else {
+//            createMap()
         }
-
-        binding.locationStart.setOnClickListener {
-            if (checkName() && checkPermissions()) {
-                startService(service)
-            }
-        }
-
-        binding.locationStop.setOnClickListener {
-            stopService(service)
-        }
-
-
+        controller.graph = graph
+//        checkPermissions()
     }
 
     private fun checkPermissions(): Boolean {
@@ -61,14 +52,5 @@ class MainActivity : AppCompatActivity() {
             )
             false
         } else true
-    }
-
-    private fun checkName(): Boolean {
-        return if (binding.name.text.isNullOrEmpty()) {
-            Toast.makeText(this, "Name is not set", Toast.LENGTH_SHORT).show()
-            false
-        } else {
-            true
-        }
     }
 }
