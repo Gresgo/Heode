@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    app:startDestination="@id/controls">
+
+    <fragment
+        android:id="@+id/controls"
+        android:name="app.gresgo.heode.main.map.ui.MainFragment"
+        android:label="MainFragment" />
+    <fragment
+        android:id="@+id/login"
+        android:name="app.gresgo.heode.main.login.ui.LoginFragment"
+        android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/team"
+        android:name="app.gresgo.heode.main.team.ui.TeamFragment"
+        android:label="TeamFragment" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="app.gresgo.heode.main.profile.ui.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/radar"
+        android:name="app.gresgo.heode.main.radar.ui.RadarFragment"
+        android:label="RadarFragment" />
 
 </navigation>

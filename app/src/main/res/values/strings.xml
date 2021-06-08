@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Heode</string>
+    <string name="email">Email: %s</string>
+    <string name="additional_info">Additional info:</string>
+    <string name="login">Login</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="registration">Registration</string>
+    <string name="sign_up">Sign up</string>
+    <string name="name">Name</string>
 </resources>

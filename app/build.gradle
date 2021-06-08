@@ -43,6 +43,7 @@ ext {
     nav_ver = '2.3.5'
     v_lifecycle = '2.3.1'
     v_koin = '3.0.2'
+    v_glide = '4.11.0'
 }
 
 dependencies {
@@ -79,6 +80,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_ver"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_ver"
     implementation 'com.google.code.gson:gson:2.8.7'
+
+    // images
+    implementation "com.github.bumptech.glide:glide:$v_glide"
+    kapt "com.github.bumptech.glide:compiler:$v_glide"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

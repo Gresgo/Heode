@@ -1,4 +1,4 @@
-package app.gresgo.heode.base
+package app.gresgo.heode.base.ui
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-class BaseViewModel: ViewModel() {
+abstract class BaseViewModel: ViewModel() {
 
     val isLoading = ObservableField(true)
 

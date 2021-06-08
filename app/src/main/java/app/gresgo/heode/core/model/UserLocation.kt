@@ -1,8 +1,8 @@
 package app.gresgo.heode.core.model
 
 data class UserLocation(
-    val user: String,
-    val dots: LocationUpdate
+    val latitude: Double,
+    val longitude: Double
 )
 
 data class LocationUpdate(

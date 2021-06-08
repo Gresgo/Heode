@@ -22,7 +22,10 @@
         <service android:name=".service.LocationService"
             android:foregroundServiceType="location"/>
 
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:windowSoftInputMode="adjustResize"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

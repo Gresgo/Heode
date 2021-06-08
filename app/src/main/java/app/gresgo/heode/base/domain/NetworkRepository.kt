@@ -16,8 +16,8 @@ abstract class NetworkRepository: KoinComponent {
     protected fun <T> Response<T>.getResponseBody(): T {
         if (!isSuccessful) {
             val message = try {
-                val error = get<Gson>().fromJson(errorBody()?.string(), ErrorResponse::class.java)
-                error.error
+//                val error = get<Gson>().fromJson(errorBody()?.string(), ErrorResponse::class.java)
+                errorBody()?.string()
             } catch (e: Exception) {
                 "Unexpected error"
             }

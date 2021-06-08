@@ -17,7 +17,7 @@ import app.gresgo.heode.service.LocationService
 import app.gresgo.heode.utils.PreferenceKeys
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var binding: ActivityMainBinding
     private val preferences: SharedPreferences by inject()
@@ -30,13 +30,18 @@ class MainActivity : AppCompatActivity() {
         val controller = navHostFragment.navController
         val graph = controller.navInflater.inflate(R.navigation.main)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        preferences.registerOnSharedPreferenceChangeListener(this)
         if (preferences.getString(PreferenceKeys.TOKEN, null) == null) {
-//            graph.startDestination = R.id.
+            graph.startDestination = R.id.login
         } else {
 //            createMap()
         }
         controller.graph = graph
 //        checkPermissions()
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+
     }
 
     private fun checkPermissions(): Boolean {
