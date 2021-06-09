@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.Insets
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.RecyclerView
 import app.gresgo.heode.base.ui.BaseFragment
 import app.gresgo.heode.base.ui.PagerAdapter
@@ -19,7 +20,7 @@ class TeamFragment: BaseFragment<TeamBinding>() {
     ) = TeamBinding.inflate(inflater, container, false)
 
     override fun onInsetsChanged(view: View?, insets: Insets) {
-
+        binding.teamTabs.updatePadding(top = insets.top)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -12,7 +12,7 @@ class ProfileRepositoryImpl(
         throw NotImplementedError()
     }
 
-    override suspend fun editProfile(): Profile {
+    override suspend fun editProfile(name: String): Profile {
         throw NotImplementedError()
     }
 

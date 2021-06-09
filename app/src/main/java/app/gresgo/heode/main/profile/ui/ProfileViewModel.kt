@@ -21,9 +21,9 @@ class ProfileViewModel(
         }
     }
 
-    fun editProfile() {
+    fun editProfile(name: String) {
         launchJob {
-            profile.set(profileRepository.editProfile())
+            profile.set(profileRepository.editProfile(name))
         }
     }
 

@@ -7,6 +7,7 @@ import app.gresgo.heode.main.map.MapModule
 import app.gresgo.heode.main.profile.ProfileModule
 import app.gresgo.heode.main.radar.RadarModule
 import app.gresgo.heode.main.team.TeamModule
+import app.gresgo.heode.service.LocationModule
 import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -27,7 +28,8 @@ class App: Application() {
                 MapModule.create(),
                 ProfileModule.create(),
                 TeamModule.create(),
-                RadarModule.create()
+                RadarModule.create(),
+                LocationModule.create()
             )
         }
         Timber.plant(get())
