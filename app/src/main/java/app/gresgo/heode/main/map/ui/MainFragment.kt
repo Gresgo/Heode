@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.Insets
+import androidx.core.view.updatePadding
 import androidx.navigation.fragment.findNavController
 import app.gresgo.heode.R
 import app.gresgo.heode.base.ui.BaseFragment
@@ -18,7 +19,7 @@ class MainFragment: BaseFragment<ControlsBinding>() {
     ) = ControlsBinding.inflate(inflater, container, false)
 
     override fun onInsetsChanged(view: View?, insets: Insets) {
-
+        binding.controls.updatePadding(top = insets.top)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
