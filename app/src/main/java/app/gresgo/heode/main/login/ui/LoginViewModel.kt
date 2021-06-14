@@ -1,7 +1,7 @@
 package app.gresgo.heode.main.login.ui
 
 import app.gresgo.heode.base.ui.BaseViewModel
-import app.gresgo.heode.main.login.domain.LoginRepository
+import app.gresgo.heode.main.login.data.LoginRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class LoginViewModel(

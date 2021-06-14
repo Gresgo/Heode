@@ -1,4 +1,4 @@
-package app.gresgo.heode.main.login.domain
+package app.gresgo.heode.main.login.data
 
 interface LoginRepository {
 

@@ -3,7 +3,8 @@ package app.gresgo.heode.service.ui
 import android.location.Location
 import app.gresgo.heode.base.ui.BaseViewModel
 import app.gresgo.heode.core.model.LocationUpdate
-import app.gresgo.heode.service.domain.LocationRepository
+import app.gresgo.heode.service.data.LocationRepository
+import timber.log.Timber
 
 class LocationViewModel(
     private val locationRepository: LocationRepository
@@ -19,6 +20,7 @@ class LocationViewModel(
                 timestamp = location.time / 1000000L
             )
             locationRepository.sendLocation(data)
+            Timber.i("receive location update at ${location.latitude}, ${location.longitude}")
         }
     }
 

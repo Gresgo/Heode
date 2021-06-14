@@ -14,11 +14,16 @@ import androidx.navigation.fragment.findNavController
 import app.gresgo.heode.R
 import app.gresgo.heode.base.ui.BaseFragment
 import app.gresgo.heode.databinding.LoginBinding
+import app.gresgo.heode.main.MainActivity
 import app.gresgo.heode.utils.PreferenceKeys
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class LoginFragment: BaseFragment<LoginBinding>() {
 
@@ -51,7 +56,18 @@ class LoginFragment: BaseFragment<LoginBinding>() {
                 val options = NavOptions.Builder()
                     .setPopUpTo(R.id.login, true)
                     .build()
+                (requireActivity() as MainActivity).createMap()
                 findNavController().navigate(R.id.controls, null, options)
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.onError.value = null
+            viewModel.onError.collect {
+                it ?: return@collect
+                withContext(Dispatchers.Main) {
+                    Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
+                    viewModel.onError.value = null
+                }
             }
         }
     }

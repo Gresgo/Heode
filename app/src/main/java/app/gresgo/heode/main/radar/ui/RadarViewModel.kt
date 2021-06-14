@@ -2,7 +2,7 @@ package app.gresgo.heode.main.radar.ui
 
 import app.gresgo.heode.base.ui.BaseViewModel
 import app.gresgo.heode.core.model.User
-import app.gresgo.heode.main.radar.domain.RadarRepository
+import app.gresgo.heode.main.radar.data.RadarRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class RadarViewModel(

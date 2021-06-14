@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -11,6 +12,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 abstract class BaseViewModel: ViewModel() {
 
     val isLoading = ObservableField(true)
+    val onError = MutableStateFlow<String?>(null)
 
     protected fun launchJob(
         context: CoroutineContext = EmptyCoroutineContext,
@@ -35,6 +37,10 @@ abstract class BaseViewModel: ViewModel() {
         Timber.e(throwable)
         if (throwable !is CancellationException) {
 //            onError.postCall(throwable)
+            Timber.i("get error ${throwable.message}")
+            launchJob {
+                onError.value = (throwable.message.toString())
+            }
         }
     }
 

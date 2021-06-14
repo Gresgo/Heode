@@ -1,4 +1,4 @@
-package app.gresgo.heode.main.map.domain
+package app.gresgo.heode.main.map.data
 
 import app.gresgo.heode.base.domain.NetworkRepository
 import app.gresgo.heode.core.network.HeodeApi

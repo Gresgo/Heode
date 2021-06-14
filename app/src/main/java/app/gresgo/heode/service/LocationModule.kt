@@ -1,7 +1,7 @@
 package app.gresgo.heode.service
 
-import app.gresgo.heode.service.domain.LocationRepository
-import app.gresgo.heode.service.domain.LocationRepositoryImpl
+import app.gresgo.heode.service.data.LocationRepository
+import app.gresgo.heode.service.data.LocationRepositoryImpl
 import app.gresgo.heode.service.ui.LocationViewModel
 import com.google.android.gms.location.LocationServices
 import org.koin.android.ext.koin.androidContext

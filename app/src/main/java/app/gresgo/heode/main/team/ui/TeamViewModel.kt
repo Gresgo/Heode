@@ -3,10 +3,8 @@ package app.gresgo.heode.main.team.ui
 import app.gresgo.heode.base.ui.BaseViewModel
 import app.gresgo.heode.core.model.Request
 import app.gresgo.heode.core.model.User
-import app.gresgo.heode.main.team.domain.TeamRepository
-import app.gresgo.heode.utils.ext.notifyChanged
+import app.gresgo.heode.main.team.data.TeamRepository
 import kotlinx.coroutines.flow.*
-import timber.log.Timber
 
 class TeamViewModel(
     private val teamRepository: TeamRepository

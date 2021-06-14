@@ -1,4 +1,4 @@
-package app.gresgo.heode.main.team.domain
+package app.gresgo.heode.main.team.data
 
 import app.gresgo.heode.base.domain.NetworkRepository
 import app.gresgo.heode.core.model.Request

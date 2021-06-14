@@ -1,8 +1,7 @@
 package app.gresgo.heode.main.radar
 
-import app.gresgo.heode.main.radar.domain.RadarRepository
-import app.gresgo.heode.main.radar.domain.RadarRepositoryImpl
-import app.gresgo.heode.main.radar.domain.RadarRepositoryTestImpl
+import app.gresgo.heode.main.radar.data.RadarRepository
+import app.gresgo.heode.main.radar.data.RadarRepositoryTestImpl
 import app.gresgo.heode.main.radar.ui.RadarViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

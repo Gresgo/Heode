@@ -1,4 +1,4 @@
-package app.gresgo.heode.main.profile.domain
+package app.gresgo.heode.main.profile.data
 
 import app.gresgo.heode.core.model.Profile
 

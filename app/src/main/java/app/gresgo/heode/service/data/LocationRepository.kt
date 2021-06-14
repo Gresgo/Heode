@@ -1,4 +1,4 @@
-package app.gresgo.heode.service.domain
+package app.gresgo.heode.service.data
 
 import app.gresgo.heode.core.model.LocationUpdate
 

@@ -1,8 +1,7 @@
 package app.gresgo.heode.main.profile
 
-import app.gresgo.heode.main.profile.domain.ProfileRepository
-import app.gresgo.heode.main.profile.domain.ProfileRepositoryImpl
-import app.gresgo.heode.main.profile.domain.ProfileRepositoryTestImpl
+import app.gresgo.heode.main.profile.data.ProfileRepository
+import app.gresgo.heode.main.profile.data.ProfileRepositoryTestImpl
 import app.gresgo.heode.main.profile.ui.ProfileViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

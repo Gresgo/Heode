@@ -1,17 +1,22 @@
 package app.gresgo.heode.main
 
 import android.Manifest
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import app.gresgo.heode.BuildConfig
 import app.gresgo.heode.R
 import app.gresgo.heode.databinding.ActivityMainBinding
 import app.gresgo.heode.main.team.ui.TeamViewModel
+import app.gresgo.heode.service.ui.LocationService
 import app.gresgo.heode.utils.PreferenceKeys
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -43,16 +48,16 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             graph.startDestination = R.id.login
         } else {
             createMap()
+            startLocationService()
         }
         controller.graph = graph
-//        checkPermissions()
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
 
     }
 
-    private fun createMap() {
+    fun createMap() {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync { map ->
@@ -78,16 +83,33 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         }
     }
 
+    private fun startLocationService() {
+        if (checkPermissions())
+            startService(Intent(this, LocationService::class.java))
+    }
+
+    private val permissionsRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { map ->
+        if (map.containsValue(true)) {
+            startLocationService()
+        }
+    }
+
     private fun checkPermissions(): Boolean {
         return if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                777
+            val permissions = arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            permissionsRequest.launch(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+                    permissions.plus(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                else permissions
             )
             false
         } else true

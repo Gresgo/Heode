@@ -1,4 +1,4 @@
-package app.gresgo.heode.service.domain
+package app.gresgo.heode.service.data
 
 import app.gresgo.heode.base.domain.NetworkRepository
 import app.gresgo.heode.core.model.LocationUpdate
@@ -9,8 +9,9 @@ class LocationRepositoryImpl(
 ): NetworkRepository(), LocationRepository {
 
     override suspend fun sendLocation(location: LocationUpdate): Boolean {
-        val response = heodeApi.addLocation(location)
-        return response.isSuccessful
+//        val response = heodeApi.addLocation(location)
+//        return response.isSuccessful
+        return true
     }
 
 }
