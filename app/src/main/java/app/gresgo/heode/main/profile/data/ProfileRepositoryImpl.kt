@@ -9,7 +9,7 @@ class ProfileRepositoryImpl(
 ): NetworkRepository(), ProfileRepository {
 
     override suspend fun getProfile(): Profile {
-        throw NotImplementedError()
+        return heodeApi.getProfile().getResponseBody()
     }
 
     override suspend fun editProfile(name: String): Profile {

@@ -3,6 +3,7 @@ package app.gresgo.heode.core.network
 import app.gresgo.heode.core.model.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface HeodeApi {
@@ -30,5 +31,10 @@ interface HeodeApi {
     suspend fun addLocation(
         @Body body: LocationUpdate
     ) : Response<Unit>
+
+    @GET("auth/users/me/")
+    suspend fun getProfile(
+
+    ) : Response<Profile>
 
 }

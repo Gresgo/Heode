@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -91,6 +92,7 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     private val permissionsRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { map ->
+        Timber.i("permission response $map")
         if (map.containsValue(true)) {
             startLocationService()
         }

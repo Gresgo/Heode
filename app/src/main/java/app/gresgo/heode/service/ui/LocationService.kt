@@ -36,7 +36,10 @@ class LocationService: Service(), KoinComponent {
         if (ActivityCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED) return
+            ) != PackageManager.PERMISSION_GRANTED) {
+                createNotification()
+                return
+        }
 
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -51,6 +54,16 @@ class LocationService: Service(), KoinComponent {
             Looper.getMainLooper()
         )
 
+        createNotification()
+    }
+
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(location: LocationResult) {
+            viewModel.sendLocation(location.lastLocation)
+        }
+    }
+
+    private fun createNotification() {
         NotificationChannels.createLocationChannel(applicationContext)
         val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(applicationContext, LOCATION_CHANNEL_ID)
@@ -61,12 +74,6 @@ class LocationService: Service(), KoinComponent {
                 .build()
         }
         startForeground(1, notification)
-    }
-
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(location: LocationResult) {
-            viewModel.sendLocation(location.lastLocation)
-        }
     }
 
     override fun onDestroy() {
